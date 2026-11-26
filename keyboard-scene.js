@@ -33,7 +33,7 @@
   return {...value,bgTop:tools?506+96*value.empty:value.y-12*value.layer,bgBottom:tools?783:value.y+value.height+12*value.layer,bgOpacity:tools?1:value.layer,icons:tools?1:0};
  }
  function endpoint(next){
-  if(next==='media-rest')return surface({...endpoint('closed'),retract:1,flat:1});
+  if(next==='media-rest'){const value=endpoint('closed');return surface({...value,x:12,width:378,y:783-value.height,retract:1,flat:1});}
   if(next==='menu'&&menuReturn==='keyboard'){const value={...endpoint('keyboard'),menu:1};if(variant==='2'&&!items.length)Object.assign(value,{x:12,y:493,width:378,records:-25,flat:1});return surface(value);}
   const value={...endpoints[next]};
   if(variant==='1'&&next==='menu'&&items.length)Object.assign(value,{x:24,y:627,width:354,records:97,layer:1});
