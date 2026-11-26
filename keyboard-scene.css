@@ -1,0 +1,139 @@
+#keyboardScene{display:none;position:absolute;inset:0;z-index:2;pointer-events:none;overflow:clip;}
+#app[data-scene="3"] #keyboardScene{display:block;}
+#app[data-scene="3"]{overflow:clip;}
+#app[data-scene="3"]>#records,#app[data-scene="3"]>#textCard,#app[data-scene="3"]>#imageCard,#app[data-scene="3"]>#keyboard,#app[data-scene="3"]>#tabbar{display:none;}
+#app[data-scene="3"]>#header{z-index:20;}
+#keyboardRecordsViewport{position:absolute;top:106px;left:0;width:402px;bottom:0;overflow:hidden;z-index:1;}
+#keyboardRecords{position:absolute;top:-106px;left:0;width:402px;height:498px;will-change:transform;}
+#foodRecords{position:absolute;left:0;top:0;width:402px;will-change:transform;}
+.food-record{position:absolute;left:0;width:390px;height:329px;transition:top 333ms cubic-bezier(.2,.8,.2,1),height 333ms cubic-bezier(.2,.8,.2,1);}
+.food-record::before{content:"";position:absolute;left:24px;right:0;top:0;bottom:0;border-radius:12px;background:#fff;}
+.food-record>img{position:absolute;width:390px;height:329px;clip-path:inset(0 0 44px 0);}
+.food-record[data-status="failed"]{height:404px;}
+.food-record[data-status="cancelled"]{height:293px;}
+.food-analysis{position:absolute;left:36px;top:285px;width:342px;overflow:hidden;transition:opacity 220ms ease;}
+.food-analysis-heading{display:flex;align-items:center;gap:8px;height:35px;}
+.food-sparkle{position:relative;width:20px;height:20px;flex:none;}
+.food-sparkle img{width:20px;height:20px;}
+.food-sparkle-video{position:absolute;inset:0;background:url('assets/food-loading-reference.png') 0 0/400px 20px no-repeat;opacity:0;transition:opacity 220ms ease;}
+.food-record[data-status="loading"] .food-sparkle-video{opacity:1;animation:food-sparkle-reference 666.667ms steps(20,end) infinite;}
+@keyframes food-sparkle-reference{from{background-position-x:0}to{background-position-x:-400px}}
+.food-analysis-label{font-size:15px;line-height:27px;color:#999;}
+.food-record[data-status="failed"] .food-analysis{top:297px;box-shadow:inset 0 .5px #e8e8e8;}
+.food-record[data-status="failed"] .food-analysis-heading{padding-top:8px;height:35px;}
+.food-record[data-status="failed"] .food-analysis-label{font-size:17px;font-weight:500;color:#323232;}
+.food-analysis-actions{display:flex;gap:8px;margin-top:12px;opacity:0;pointer-events:none;transition:opacity 220ms ease;}
+.food-record[data-status="failed"] .food-analysis-actions{opacity:1;pointer-events:auto;}
+.food-analysis-actions button{width:167px;height:48px;border-radius:8px;background:rgba(183,183,183,.1);font-size:17px;}
+.food-analysis-actions button:active,.food-analysis-actions button.is-opening{background:#ffdde8;box-shadow:inset 0 0 0 .5px #ff448c;color:#ff448c;}
+.food-record[data-status="cancelled"] .food-analysis{opacity:0;pointer-events:none;}
+@media(prefers-reduced-motion:reduce){.food-record[data-status="loading"] .food-sparkle-video{display:none;}}
+.food-record-picture,.food-fly-picture{position:absolute;left:36px;top:41px;width:180px;height:240px;border-radius:8px;overflow:hidden;}
+.food-record-picture img,.food-fly-picture img{position:absolute;max-width:none;}
+.food-record-picture img.food-card-photo,.food-fly-picture img.food-card-photo{width:390px;height:329px;left:-36px;top:-41px;}
+.food-record-picture img.food-album-photo,.food-fly-picture img.food-album-photo{width:720px;height:960px;left:calc(-30px - var(--meal-col) * 240px);top:calc(var(--meal-row) * -240px);}
+#foodTool{position:absolute;left:320px;top:526px;width:64px;height:70px;z-index:4;pointer-events:auto;}
+#keyboardScene:not([data-variant="2"]) #foodTool{display:none;}
+#keyboardTimeline{position:absolute;left:11.5px;top:106px;bottom:0;width:1px;background:#dfdfe1;z-index:0;}
+#keyboardSceneTabs{position:absolute;top:791px;left:0;width:402px;height:83px;z-index:3;}
+#keyboardUnderlay{position:absolute;left:-8px;top:486px;width:418px;height:317px;z-index:2;will-change:transform,opacity;}
+#keyboardUnderlay img{width:418px;height:317px;}
+#keyboardInput{position:absolute;left:24px;top:627px;width:354px;height:144px;z-index:4;pointer-events:auto;border-radius:16px;border:1px solid #dfdfe1;background:#fff;will-change:transform,width;overflow:hidden;}
+#keyboardPhotoScroller{position:absolute;left:0;right:0;top:11px;height:76px;overflow:auto hidden;scrollbar-width:none;touch-action:none;cursor:grab;user-select:none;overscroll-behavior:contain;}
+#keyboardPhotoScroller::-webkit-scrollbar{display:none;}
+#keyboardPhotoScroller:active{cursor:grabbing;}
+#keyboardPhotoTrack{display:flex;gap:8px;width:max-content;padding:0 11px;will-change:transform;}
+#keyboardPhotos{display:flex;gap:8px;}
+#keyboardPhotos:empty{display:none;}
+#keyboardAdd{width:76px;height:76px;flex:none;}
+#keyboardAdd img{width:76px;height:76px;}
+#keyboardAdd[hidden]{display:none;}
+#keyboardInputRow{position:absolute;left:11px;right:11px;bottom:11px;height:28px;display:flex;align-items:center;justify-content:space-between;}
+#keyboardTextInput{display:flex;gap:8px;align-items:center;height:40px;flex:1;min-width:0;white-space:nowrap;text-align:left;}
+#keyboardTextInput>img{width:26px;height:26px;}
+#keyboardPlaceholder{position:relative;font-size:17px;line-height:28px;color:#ccc;}
+#keyboardScene[data-keyboard-active="true"] #keyboardPlaceholder::before{content:"";position:absolute;left:0;top:6px;width:1.5px;height:18px;background:#ff448c;}
+#keyboardSend,#keyboardSend img{width:26px;height:26px;flex:none;}
+#keyboardSheet{position:absolute;left:0;top:549px;width:402px;height:325px;transform:translateY(325px);z-index:5;will-change:transform;}
+/* The indicator is part of the supplied images. Fade a matching patch over it
+   while a media panel is present, without changing the keyboard or tab bar. */
+#keyboardScene::after{content:"";position:absolute;left:121px;bottom:5px;width:160px;height:12px;z-index:7;pointer-events:none;background:#fff;opacity:0;transition:opacity 180ms ease;}
+#keyboardScene[data-keyboard-active="true"]::after{background:#d0d3da;}
+#keyboardScene.media-active::after{opacity:1;}
+@media(prefers-reduced-motion:reduce){#keyboardScene::after{transition-duration:1ms;}}
+#keyboardDismiss{position:absolute;top:106px;left:0;width:402px;height:291px;pointer-events:auto;z-index:3;}
+#keyboardHideKey{position:absolute;left:364px;top:549px;width:38px;height:42px;pointer-events:auto;z-index:6;}
+#keyboardMenuBlocker{position:absolute;inset:0;z-index:50;touch-action:none;}
+#keyboardMenuAnchor{position:absolute;width:145px;height:104px;z-index:51;}
+#keyboardMenu,.menuMorphContent{width:145px;height:104px;background:white url('assets/selection-menu-slice-2x.png') center/185px 144px no-repeat;padding:4px 16px;border-radius:12px;box-shadow:0 0 20px #00000014;transform-origin:50% 50%;}
+#keyboardMenu button,.menuMorphContent button{position:relative;width:113px;height:48px;display:flex;align-items:center;gap:8px;font-size:17px;line-height:22px;letter-spacing:-.0731px;white-space:nowrap;color:transparent;}
+#keyboardMenu button img,.menuMorphContent button img{width:20px;height:20px;opacity:0;}
+#keyboardMenu button:first-child::after,.menuMorphContent button:first-child::after{content:attr(data-visible-label);position:absolute;left:28px;top:50%;transform:translateY(-50%);color:#323232;background:#fff;line-height:22px;}
+.scene-tabs button{padding-left:12px;padding-right:12px;white-space:nowrap;}
+@media(max-width:370px){.scene-tabs button{font-size:12px;padding-left:9px;padding-right:9px;}}
+
+/* Keep the original exported icon strip at its native size as the panel contracts. */
+#keyboardUnderlay{left:12px;top:506px;width:378px;height:277px;border-radius:20px;background:rgba(255,255,255,.7);box-shadow:0 0 20px #00000014;}
+#keyboardUnderlay img{position:absolute;left:-20px;top:-20px;clip-path:inset(0 0 184px 0);pointer-events:none;}
+#keyboardCamera{position:absolute;right:4px;top:1px;width:26px;height:26px;opacity:0;pointer-events:none;}
+#keyboardCamera img{width:26px;height:26px;}
+#keyboardCompactBase{position:absolute;left:12px;width:378px;height:72px;border-radius:20px;background:rgba(255,255,255,.7);box-shadow:0 0 20px #00000014;z-index:2;opacity:0;}
+/* All panel surfaces and icon fading come from the original Figma export. */
+#keyboardUnderlay,#keyboardCompactBase{left:-8px;width:418px;background:none;box-shadow:none;border-radius:0;}
+#keyboardUnderlay img,#keyboardCompactBase img{position:absolute;left:0;width:418px;clip-path:none;}
+#keyboardUnderlay .panelTop{top:0;height:153px;}
+#keyboardUnderlay .panelCap,#keyboardCompactBase .panelCap{top:0;height:40px;}
+#keyboardUnderlay .panelMiddle,#keyboardCompactBase .panelMiddle{top:40px;bottom:40px;height:calc(100% - 80px);}
+#keyboardUnderlay .panelBottom,#keyboardCompactBase .panelBottom{top:auto;bottom:0;height:40px;}
+#keyboardCompactBase{height:112px;}
+#keyboardCamera{top:50%;transform:translateY(-50%);}
+#keyboardScene[data-flat-input="true"] #keyboardPlaceholder::before{display:none;}
+#cameraScreen{position:absolute;inset:0;z-index:80;overflow:hidden;background:#000;touch-action:none;will-change:transform;}
+#cameraScreen[hidden]{display:none;}
+#cameraScreen>img{width:402px;height:874px;}
+#cameraScreen button{position:absolute;background:transparent;border:0;-webkit-tap-highlight-color:transparent;}
+#cameraClose{left:4px;top:62px;width:42px;height:44px;}
+#cameraCapture{left:156px;top:696px;width:90px;height:90px;border-radius:50%;}
+/* Keep the photo clip flush with the single-layer card edge. */
+#keyboardScene[data-variant="2"] #keyboardInput{border:0;}
+#keyboardScene[data-variant="2"] #keyboardPhotoScroller{top:12px;}
+#keyboardScene[data-variant="2"] #keyboardPhotoTrack{padding-left:12px;padding-right:12px;}
+#keyboardScene[data-variant="2"] #keyboardInputRow{left:12px;right:12px;}
+/* 相机与相册使用 Figma 的 378×504 面板，原页面和键盘保留在下面。 */
+#mediaLayer{position:absolute;inset:0;z-index:80;pointer-events:auto;}
+#mediaLayer[hidden],.mediaPanel[hidden]{display:none;}
+#mediaOutside{position:absolute;inset:0;width:100%;height:100%;}
+.mediaPanel{position:absolute;left:12px;top:358px;width:378px;height:504px;overflow:hidden;border-radius:48px;touch-action:pan-y;will-change:transform;}
+#foodCameraPanel{position:absolute;left:12px;top:358px;width:378px;height:504px;overflow:hidden;border-radius:48px;will-change:transform,opacity;}
+#foodCameraPanel,#albumPanel{backface-visibility:hidden;will-change:transform,opacity;}
+#foodCameraPanel[hidden]{display:none;}
+#foodCameraPanel>img{position:absolute;left:-12px;top:-358px;width:402px;height:874px;max-width:none;}
+#foodCameraPanel button{position:absolute;bottom:24px;width:46px;height:46px;border-radius:50%;}
+#foodCameraBack{left:24px;}#foodCameraAlbum{right:24px;}#foodCameraPanel #foodCameraCapture{left:157px;bottom:15px;width:64px;height:64px;}
+.food-fly-picture{left:0;top:0;z-index:4;pointer-events:none;transform-origin:0 0;will-change:transform,opacity;}
+#cameraPanel>img{width:378px;height:504px;}
+#cameraPanel button,#albumBack,#albumConfirm{position:absolute;z-index:2;-webkit-tap-highlight-color:transparent;}
+#cameraPanelBack,#albumBack{left:24px;bottom:24px;width:46px;height:46px;border-radius:50%;}
+#cameraPanelCapture{left:157px;bottom:15px;width:64px;height:64px;border-radius:50%;}
+#cameraPanelFlip{right:24px;bottom:24px;width:46px;height:46px;border-radius:50%;}
+#albumPanel{background:#fff;box-shadow:inset 0 0 0 .5px #ccc;}
+#albumGrid{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;touch-action:none;}
+#albumTrack{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:calc((378px - 4px)/3);gap:2px;align-content:start;will-change:transform;}
+#albumGrid::-webkit-scrollbar{display:none;}
+#albumGrid button{position:relative;overflow:hidden;background:#eee;touch-action:none;}
+.meal-image{display:block;width:100%;height:100%;background-image:url('assets/album-meals.png');background-size:300% 400%;background-position:calc(var(--meal-col) * 50%) calc(var(--meal-row) * 33.333333%);}
+#albumGrid .selection-number{display:block;position:absolute;z-index:1;top:5px;right:5px;width:22px;height:22px;line-height:22px;text-align:center;color:#fff;background:rgba(0,0,0,.2);box-shadow:0 0 0 1px rgba(255,255,255,.7);border-radius:50%;font-size:13px;}
+#albumGrid button[aria-pressed="true"] .selection-number{background:#ff448c;border:1px solid #fff;box-shadow:none;line-height:20px;}
+#albumGrid button::after{content:"";position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity 160ms ease;}
+#albumGrid.is-limit button[aria-pressed="false"]::after{opacity:.4;}
+#foodCameraBack,#cameraPanelBack,#albumBack{display:grid;place-items:center;left:24px;bottom:24px;width:46px;height:46px;border-radius:50%;overflow:hidden;}
+#foodCameraBack{background:url('assets/food-camera-2x.png') -88px -792px/402px 874px no-repeat;}
+#cameraPanelBack{background:url('assets/camera-panel-2x.png') -76px -434px/378px 504px no-repeat;}
+#foodCameraBack img,#cameraPanelBack img,#albumBack img{width:46px;height:46px;}
+#albumConfirm{right:24px;bottom:24px;width:108px;height:46px;border-radius:49px;background:rgba(0,0,0,.4);color:white;font-size:17px;line-height:46px;transition:width 150ms cubic-bezier(.2,.8,.2,1),background-color 150ms ease;}
+#albumConfirm span{display:inline-block;}
+#albumConfirm.selected{width:132px;background:#ff448c;}
+.photo>.meal-image{width:76px;height:76px;border-radius:8px;}
+.scene-tabs{max-width:100%;overflow-x:auto;scrollbar-width:none;}
+.scene-tabs::-webkit-scrollbar{display:none;}
+@media(max-width:560px){.scene-tabs button{font-size:11px;padding-left:6px;padding-right:6px;}}
